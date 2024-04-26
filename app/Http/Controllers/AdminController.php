@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Veranstaltungen;
+use App\Models\Event;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
     public function index()
     {
-        $events = Veranstaltungen::orderBy('id', 'desc')->get();
+        $events = Event::orderBy('id', 'desc')->get();
         return view('admin.dashboard', compact('events'));
     }
 
@@ -26,7 +26,7 @@ class AdminController extends Controller
             'location' => 'required',
             'available_slots' => 'required'
         ]);
-        $data = Veranstaltungen::create($validation);
+        $data = Event::create($validation);
         if ($data) {
             session()->flash('success', 'Veranstaltung Add Successfully');
             return redirect(route('admin.dashboard'));
@@ -38,13 +38,13 @@ class AdminController extends Controller
 
     public function edit($id)
     {
-        $events = Veranstaltungen::findOrFail($id);
+        $events = Event::findOrFail($id);
         return view('admin.edit_event', compact('events'));
     }
 
     public function update(Request $request, $id)
     {
-        $events = Veranstaltungen::findOrFail($id);
+        $events = Event::findOrFail($id);
         $name = $request->name;
         $date = $request->date;
         $location = $request->location;
@@ -69,7 +69,7 @@ class AdminController extends Controller
 
     public function delete($id)
     {
-        $events = Veranstaltungen::findOrFail($id)->delete();
+        $events = Event::findOrFail($id)->delete();
         if ($events) {
             session()->flash('success', 'Veranstaltung Deleted Successfully');
         } else {
