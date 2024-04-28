@@ -23,7 +23,7 @@
                         <thead class="thead-light">
                         <tr>
                             <th>Name</th>
-                            <th>Date</th>
+                            <th>Datum</th>
                             <th>Ort</th>
                             <th>max. Teilnehmer</th>
                             <th>Beschreibung</th>

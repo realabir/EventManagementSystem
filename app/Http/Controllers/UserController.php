@@ -8,22 +8,26 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
     public function index(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
     {
+        $user = Auth::user();
+        $registrations = $user->registrations();
+
         $events = Event::orderBy('id', 'desc')->get();
-        return view('user.dashboard', compact('events'));
+        return view('user.dashboard', compact('events', 'registrations'));
     }
 
-    public function subscribe($id)
+    public function register($id)
     {
         $event = Event::find($id);
         return view('user.add_registration', ['event' => $event]);
     }
 
-    public function confirmSubscription(Request $request, $id)
+    public function confirmRegistration(Request $request, $id)
     {
         $user = auth()->user();
 
@@ -46,14 +50,23 @@ class UserController extends Controller
         return redirect('/user/dashboard');
     }
 
-    public function unsubscribe($id)
+    public function editRegistration(Registration $registration)
     {
-        $user = auth()->user();
+        return view('user.edit_registration', ['registration' => $registration]);
+    }
 
-        $event = Event::find($id);
-        // Remove registration for this user and event
-        $user->registrations()->where('event_id', $event->id)->delete();
+    public function updateRegistration(Request $request, Registration $registration)
+    {
+        $registration->attendees_count = $request->input('attendees_count');
+        $registration->save();
 
-        return back();
+        return redirect()->route('user.dashboard');
+    }
+
+    public function deleteRegistration(Registration $registration)
+    {
+        $registration->delete();
+
+        return redirect()->route('user.dashboard');
     }
 }

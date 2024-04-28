@@ -37,9 +37,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
 Route::middleware(['auth', 'user'])->group(function () {
     Route::get('/user/dashboard', [UserController::class, 'index'])->name('user.dashboard');
 
-    Route::get('/user/subscribe/{id}', [UserController::class, 'subscribe'])->name('user.subscribe');
-    Route::post('/user/subscribe/{id}', [UserController::class, 'confirmSubscription'])->name('user.subscribe.confirm');
-    Route::post('/user/unsubscribe/{id}', [UserController::class, 'unsubscribe'])->name('user.unsubscribe');
+    Route::get('/user/register/{id}', [UserController::class, 'register'])->name('user.register');
+    Route::post('/user/register/{id}', [UserController::class, 'confirmRegistration'])->name('user.register.confirm');
+    Route::post('/user/register/{id}', [UserController::class, 'unsubscribe'])->name('user.register.unsubscribe');
+
+    Route::get('/registration/edit/{registration}',  [UserController::class, 'editRegistration'])->name('registration.edit');
+    Route::post('/registration/update/{registration}',  [UserController::class, 'updateRegistration'])->name('registration.update');
+    Route::post('/registration/delete/{registration}',  [UserController::class, 'deleteRegistration'])->name('registration.delete');
 
 });
 

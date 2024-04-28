@@ -20,7 +20,7 @@
                         <thead class="thead-light">
                         <tr>
                             <th>Name</th>
-                            <th>Date</th>
+                            <th>Datum</th>
                             <th>Ort</th>
                             <th>max. Teilnehmer</th>
                             <th>Beschreibung</th>
@@ -37,14 +37,14 @@
                                 <td>{{ $event->description }}</td>
                                 <td>
                                     @if(auth()->user()->events->contains($event))
-                                        <form method="POST" action="{{ route('user.unsubscribe', ['id' => $event->id]) }}">
+                                        <form method="POST" action="{{ route('registration.edit', ['registration' => $registrations->where('event_id', $event->id)->first()->id]) }}">
                                             @csrf
-                                            <button type="submit" class="btn btn-danger">Unsubscribe</button>
+                                            <a href="{{ route('registration.edit', $registrations->where('event_id', $event->id)->first()) }}" class="btn btn-info">Bearbeiten</a>
                                         </form>
                                     @else
-                                        <form method="POST" action="{{ route('user.subscribe', ['id' => $event->id]) }}">
+                                        <form method="POST" action="{{ route('user.register', ['id' => $event->id]) }}">
                                             @csrf
-                                            <a href="{{ route('user.subscribe', ['id' => $event->id]) }}" class="btn btn-primary">Subscribe</a>
+                                            <a href="{{ route('user.register', ['id' => $event->id]) }}" class="btn btn-primary">Anmelden</a>
                                         </form>
                                     @endif
                                 </td>
