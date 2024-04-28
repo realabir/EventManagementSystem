@@ -37,6 +37,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
 Route::middleware(['auth', 'user'])->group(function () {
     Route::get('/user/dashboard', [UserController::class, 'index'])->name('user.dashboard');
 
+    Route::get('/user/subscribe/{id}', [UserController::class, 'subscribe'])->name('user.subscribe');
+    Route::post('/user/subscribe/{id}', [UserController::class, 'confirmSubscription'])->name('user.subscribe.confirm');
+    Route::post('/user/unsubscribe/{id}', [UserController::class, 'unsubscribe'])->name('user.unsubscribe');
+
 });
 
 require __DIR__.'/auth.php';

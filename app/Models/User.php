@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
@@ -31,6 +32,16 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function registrations()
+    {
+        return $this->hasMany(\App\Models\Registration::class);
+    }
+
+    public function events()
+    {
+        return $this->belongsToMany(Event::class, 'registrations');
+    }
 
     /**
      * Get the attributes that should be cast.

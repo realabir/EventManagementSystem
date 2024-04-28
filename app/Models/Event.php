@@ -17,4 +17,14 @@ class Event extends Model
         'available_slots',
         'description'
     ];
+
+    public function registrations()
+    {
+        return $this->hasMany(\App\Models\Registration::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'registrations');
+    }
 }

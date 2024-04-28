@@ -24,7 +24,8 @@ class AdminController extends Controller
             'name' => 'required',
             'date' => 'required',
             'location' => 'required',
-            'available_slots' => 'required'
+            'available_slots' => 'required',
+            'description' => 'required',
         ]);
         $data = Event::create($validation);
         if ($data) {

@@ -14,7 +14,7 @@ class User
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         if (Auth::user()->usertype !== 'user') {
             return redirect()->route('admin.dashboard');
