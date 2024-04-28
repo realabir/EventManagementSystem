@@ -22,7 +22,7 @@
                             <th>Name</th>
                             <th>Datum</th>
                             <th>Ort</th>
-                            <th>max. Teilnehmer</th>
+                            <th>Verfügbare Plätze</th>
                             <th>Beschreibung</th>
                             <th>Aktionen</th>
                         </tr>

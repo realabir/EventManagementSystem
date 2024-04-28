@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Registration;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -11,6 +12,12 @@ class AdminController extends Controller
     {
         $events = Event::orderBy('id', 'desc')->get();
         return view('admin.dashboard', compact('events'));
+    }
+
+    public function details(Event $event)
+    {
+        $registrations = Registration::where('event_id', $event->id)->get();
+        return view('admin.detail_view', compact('event', 'registrations'));
     }
 
     public function add()

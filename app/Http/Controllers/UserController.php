@@ -21,17 +21,15 @@ class UserController extends Controller
         return view('user.dashboard', compact('events', 'registrations'));
     }
 
-    public function register($id)
+    public function register($event)
     {
-        $event = Event::find($id);
+        $event = Event::find($event);
         return view('user.add_registration', ['event' => $event]);
     }
 
-    public function confirmRegistration(Request $request, $id)
+    public function confirmRegistration(Request $request, Event $event)
     {
         $user = auth()->user();
-
-        $event = Event::find($id);
 
         if ($request->attendees_count > $event->available_slots) {
             return redirect()->back()->with('error', 'You are trying to subscribe more attendees than the available slots.');
@@ -65,6 +63,9 @@ class UserController extends Controller
 
     public function deleteRegistration(Registration $registration)
     {
+        $event = $registration->event;
+        $event->available_slots += $registration->attendees_count;
+        $event->save();
         $registration->delete();
 
         return redirect()->route('user.dashboard');

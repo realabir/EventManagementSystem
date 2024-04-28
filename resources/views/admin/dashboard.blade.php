@@ -11,7 +11,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div class="d-flex justify-content-end mb-2">
-                        <a href="{{ route('admin/dashboard/add') }}" class="btn btn-success">Veranstaltung hinzufügen</a>
+                        <a href="{{ route('admin.dashboard.add') }}" class="btn btn-success">Veranstaltung hinzufügen</a>
                     </div>
                     <hr />
                     @if(Session::has('success'))
@@ -25,7 +25,7 @@
                             <th>Name</th>
                             <th>Datum</th>
                             <th>Ort</th>
-                            <th>max. Teilnehmer</th>
+                            <th>Verfübare Plätze</th>
                             <th>Beschreibung</th>
                             <th>Aktionen</th>
                         </tr>
@@ -39,8 +39,9 @@
                                 <td>{{ $event->available_slots }}</td>
                                 <td>{{ $event->description }}</td>
                                 <td>
-                                    <a href="{{ route('admin/dashboard/edit', ['id' => $event->id]) }}" class="btn btn-warning">Edit</a>
-                                    <a href="{{ route('admin/dashboard/delete', ['id' => $event->id]) }}" class="btn btn-danger">Delete</a>
+                                    <a href="{{ route('admin.details', ['event' => $event->id]) }}" class="btn btn-info">Details</a>
+                                    <a href="{{ route('admin.dashboard.edit', ['id' => $event->id]) }}" class="btn btn-warning">Edit</a>
+                                    <a href="{{ route('admin.dashboard.delete', ['id' => $event->id]) }}" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>
                         @empty

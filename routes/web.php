@@ -26,19 +26,20 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/details/{event}', [AdminController::class, 'details'])->name('admin.details');
 
-    Route::get('/admin/dashboard/add', [AdminController::class, 'add'])->name('admin/dashboard/add');
-    Route::post('/admin/dashboard/save', [AdminController::class, 'save'])->name('admin/dashboard/save');
-    Route::get('/admin/dashboard/edit/{id}', [AdminController::class, 'edit'])->name('admin/dashboard/edit');
-    Route::put('/admin/dashboard/edit/{id}', [AdminController::class, 'update'])->name('admin/dashboard/update');
-    Route::get('/admin/dashboard/delete/{id}', [AdminController::class, 'delete'])->name('admin/dashboard/delete');
+    Route::get('/admin/dashboard/add', [AdminController::class, 'add'])->name('admin.dashboard.add');
+    Route::post('/admin/dashboard/save', [AdminController::class, 'save'])->name('admin.dashboard.save');
+    Route::get('/admin/dashboard/edit/{id}', [AdminController::class, 'edit'])->name('admin.dashboard.edit');
+    Route::put('/admin/dashboard/edit/{id}', [AdminController::class, 'update'])->name('admin.dashboard.update');
+    Route::get('/admin/dashboard/delete/{id}', [AdminController::class, 'delete'])->name('admin.dashboard.delete');
 });
 
 Route::middleware(['auth', 'user'])->group(function () {
     Route::get('/user/dashboard', [UserController::class, 'index'])->name('user.dashboard');
 
     Route::get('/user/register/{id}', [UserController::class, 'register'])->name('user.register');
-    Route::post('/user/register/{id}', [UserController::class, 'confirmRegistration'])->name('user.register.confirm');
+    Route::post('/user/register/{event}', [UserController::class, 'confirmRegistration'])->name('user.register.confirm');
     Route::post('/user/register/{id}', [UserController::class, 'unsubscribe'])->name('user.register.unsubscribe');
 
     Route::get('/registration/edit/{registration}',  [UserController::class, 'editRegistration'])->name('registration.edit');
